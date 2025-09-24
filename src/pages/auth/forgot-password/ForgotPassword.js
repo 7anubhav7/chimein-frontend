@@ -1,11 +1,11 @@
 import { FaArrowLeft } from 'react-icons/fa';
 import { useState } from 'react';
-import Input from '../../../components/input/Input';
-import Button from '../../../components/button/Button';
+import Input from '@components/input/Input';
+import Button from '@components/button/Button';
 import { Link } from 'react-router-dom';
-import backgroundImage from '../../../assets/images/background.jpg';
+import backgroundImage from '@assets/images/background.jpg';
 import './ForgotPassword.scss';
-import { authService } from '../../../services/api/auth/auth.service';
+import { authService } from '@services/api/auth/auth.service';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -33,10 +33,16 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="container-wrapper" style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <div
+      className="container-wrapper"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <div className="environment">DEV</div>
       <div className="container-wrapper-auth">
-        <div className="tabs forgot-password-tabs" style={{ height: `${responseMessage ? '300px' : ''}` }}>
+        <div
+          className="tabs forgot-password-tabs"
+          style={{ height: `${responseMessage ? '300px' : ''}` }}
+        >
           <div className="tabs-auth">
             <ul className="tab-group">
               <li className="tab">
@@ -51,7 +57,10 @@ const ForgotPassword = () => {
                     {responseMessage}
                   </div>
                 )}
-                <form className="forgot-password-form" onSubmit={forgotPassword}>
+                <form
+                  className="forgot-password-form"
+                  onSubmit={forgotPassword}
+                >
                   <div className="form-input-container">
                     <Input
                       id="email"
@@ -60,12 +69,18 @@ const ForgotPassword = () => {
                       value={email}
                       labelText="Email"
                       placeholder="Enter Email"
-                      style={{ border: `${showAlert ? '1px solid #fa9b8a' : ''}` }}
+                      style={{
+                        border: `${showAlert ? '1px solid #fa9b8a' : ''}`,
+                      }}
                       handleChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
                   <Button
-                    label={`${loading ? 'FORGOT PASSWORD IN PROGRESS...' : 'FORGOT PASSWORD'}`}
+                    label={`${
+                      loading
+                        ? 'FORGOT PASSWORD IN PROGRESS...'
+                        : 'FORGOT PASSWORD'
+                    }`}
                     className="auth-button button"
                     disabled={!email}
                   />

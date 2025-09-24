@@ -1,9 +1,10 @@
-import Input from '../../../components/input/Input';
-import Button from '../../../components/button/Button';
-import './Register.scss';
+import Input from '@components/input/Input';
+import Button from '@components/button/Button';
+import '@pages/auth/register/Register.scss';
 import { useState, useEffect } from 'react';
-import { Utils } from '../../../services/utils/utils.service';
-import { authService } from '../../../services/api/auth/auth.service';
+import { Utils } from '@services/utils/utils.service';
+import { authService } from '@services/api/auth/auth.service';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -14,19 +15,23 @@ const Register = () => {
   const [alertType, setAlertType] = useState('');
   const [hasError, setHasError] = useState(false);
   const [user, setUser] = useState();
+  const navigate = useNavigate();
 
   const registerUser = async (event) => {
     setLoading(true);
     event.preventDefault();
     try {
       const avatarColor = Utils.avatarColor();
-      const avatarImage = Utils.generateAvatar(username.charAt(0).toUpperCase(), avatarColor);
+      const avatarImage = Utils.generateAvatar(
+        username.charAt(0).toUpperCase(),
+        avatarColor
+      );
       const result = await authService.signUp({
         username,
         email,
         password,
         avatarColor,
-        avatarImage
+        avatarImage,
       });
       console.log(result);
 
@@ -46,11 +51,8 @@ const Register = () => {
 
   useEffect(() => {
     if (loading && !user) return;
-    if (user) {
-      console.log('navigate to streams page');
-      setLoading(false);
-    }
-  }, [loading, user]);
+    if (user) navigate('/app/social/streams');
+  }, [loading, user, navigate]);
 
   return (
     <div className="auth-inner">

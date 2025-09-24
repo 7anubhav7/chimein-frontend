@@ -1,11 +1,11 @@
 import './ResetPassword.scss';
 import { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import Input from '../../../components/input/Input';
-import Button from '../../../components/button/Button';
+import Input from '@components/input/Input';
+import Button from '@components/button/Button';
 import { Link, useSearchParams } from 'react-router-dom';
-import backgroundImage from '../../../assets/images/background.jpg';
-import { authService } from '../../../services/api/auth/auth.service';
+import backgroundImage from '@assets/images/background.jpg';
+import { authService } from '@services/api/auth/auth.service';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -21,7 +21,10 @@ const ResetPassword = () => {
     event.preventDefault();
     try {
       const body = { password, confirmPassword };
-      const response = await authService.resetPassword(searchParams.get('token'), body);
+      const response = await authService.resetPassword(
+        searchParams.get('token'),
+        body
+      );
       setLoading(false);
       setPassword('');
       setConfirmPassword('');
@@ -37,10 +40,16 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="container-wrapper" style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <div
+      className="container-wrapper"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <div className="environment">DEV</div>
       <div className="container-wrapper-auth">
-        <div className="tabs reset-password-tabs" style={{ height: `${responseMessage ? '400px' : ''}` }}>
+        <div
+          className="tabs reset-password-tabs"
+          style={{ height: `${responseMessage ? '400px' : ''}` }}
+        >
           <div className="tabs-auth">
             <ul className="tab-group">
               <li className="tab">
@@ -63,7 +72,9 @@ const ResetPassword = () => {
                       value={password}
                       labelText="New Password"
                       placeholder="New Password"
-                      style={{ border: `${showAlert ? '1px solid #fa9b8a' : ''}` }}
+                      style={{
+                        border: `${showAlert ? '1px solid #fa9b8a' : ''}`,
+                      }}
                       handleChange={(e) => setPassword(e.target.value)}
                     />
                     <Input
@@ -73,12 +84,18 @@ const ResetPassword = () => {
                       value={confirmPassword}
                       labelText="Confirm Password"
                       placeholder="Confirm Password"
-                      style={{ border: `${showAlert ? '1px solid #fa9b8a' : ''}` }}
+                      style={{
+                        border: `${showAlert ? '1px solid #fa9b8a' : ''}`,
+                      }}
                       handleChange={(e) => setConfirmPassword(e.target.value)}
                     />
                   </div>
                   <Button
-                    label={`${loading ? 'RESET PASSWORD IN PROGRESS...' : 'RESET PASSWORD'}`}
+                    label={`${
+                      loading
+                        ? 'RESET PASSWORD IN PROGRESS...'
+                        : 'RESET PASSWORD'
+                    }`}
                     className="auth-button button"
                     disabled={!password || !confirmPassword}
                   />

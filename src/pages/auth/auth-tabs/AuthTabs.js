@@ -1,23 +1,34 @@
 import { useState } from 'react';
-import { Login, Register } from '../index';
-import './AuthTabs.scss';
-import backgroundImage from '../../../assets/images/background.jpg';
+
+import '@pages/auth/auth-tabs/AuthTabs.scss';
+import backgroundImage from '@assets/images/background.jpg';
+import Login from '@pages/auth/login/Login';
+import Register from '@pages/auth/register/Register';
 
 const AuthTabs = () => {
   const [type, setType] = useState('Sign In');
 
   return (
     <>
-      <div className="container-wrapper" style={{ backgroundImage: `url(${backgroundImage})` }}>
+      <div
+        className="container-wrapper"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
         <div className="environment">DEV</div>
         <div className="container-wrapper-auth">
           <div className="tabs">
             <div className="tabs-auth">
               <ul className="tab-group">
-                <li className={`tab ${type === 'Sign In' ? 'active' : ''}`} onClick={() => setType('Sign In')}>
+                <li
+                  className={`tab ${type === 'Sign In' ? 'active' : ''}`}
+                  onClick={() => setType('Sign In')}
+                >
                   <button className="login">Sign In</button>
                 </li>
-                <li className={`tab ${type === 'Sign Up' ? 'active' : ''}`} onClick={() => setType('Sign Up')}>
+                <li
+                  className={`tab ${type === 'Sign Up' ? 'active' : ''}`}
+                  onClick={() => setType('Sign Up')}
+                >
                   <button className="signup">Sign Up</button>
                 </li>
               </ul>
