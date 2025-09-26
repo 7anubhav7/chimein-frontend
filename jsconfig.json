@@ -1,6 +1,7 @@
 {
   "extends": "./jsconfig.paths.json",
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    "checkJs": true
   }
 }
