@@ -1,6 +1,7 @@
 {
   "extends": "./jsconfig.paths.json",
   "compilerOptions": {
+    "jsx": "react",
     "baseUrl": ".",
     "checkJs": true
   }

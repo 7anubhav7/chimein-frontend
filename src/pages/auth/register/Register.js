@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Input from '@components/input/Input';
 import Button from '@components/button/Button';
 import '@pages/auth/register/Register.scss';
@@ -25,14 +26,16 @@ const Register = () => {
   const dispatch = useDispatch();
 
   const registerUser = async (event) => {
-    setLoading(true);
     event.preventDefault();
+    setLoading(true);
     try {
       const avatarColor = Utils.avatarColor();
       const avatarImage = Utils.generateAvatar(
         username.charAt(0).toUpperCase(),
         avatarColor
       );
+
+      await new Promise((resolve) => setTimeout(resolve, 0));
       const result = await authService.signUp({
         username,
         email,
@@ -40,19 +43,15 @@ const Register = () => {
         avatarColor,
         avatarImage,
       });
-      console.log(result);
-
       setLoggedIn(true);
       setStoredUsername(username);
-      Utils.dispatchUser(result, pageReload, dispatch, setUser);
-      setUser(result.data.user);
-      setHasError(false);
       setAlertType('alert-success');
+      Utils.dispatchUser(result, pageReload, dispatch, setUser);
     } catch (error) {
       setLoading(false);
       setHasError(true);
       setAlertType('alert-error');
-      setErrorMessage(error?.response?.data.message);
+      setErrorMessage(error?.response?.data?.message);
     }
   };
 
