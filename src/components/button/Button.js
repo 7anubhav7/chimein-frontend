@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const Button = (props) => {
   const { label, className, disabled, handleClick } = props;
@@ -16,7 +17,7 @@ Button.propTypes = {
   label: PropTypes.any.isRequired,
   className: PropTypes.string,
   handleClick: PropTypes.func,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 export default Button;

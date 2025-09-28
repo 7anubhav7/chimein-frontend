@@ -1,6 +1,10 @@
 import { floor, random } from 'lodash';
 import { avatarColors } from '@services/utils/static.data';
 import { addUser, clearUser } from '@redux/reducers/user/user.reducer';
+import {
+  addNotification,
+  clearNotification,
+} from '@redux/reducers/notifications/notification.reducer';
 
 export class Utils {
   static avatarColor() {
@@ -46,6 +50,14 @@ export class Utils {
     setLoggedIn(false);
   }
 
+  static dispatchNotification(message, type, dispatch) {
+    dispatch(addNotification({ message, type }));
+  }
+
+  static dispatchClearNotification(dispatch) {
+    dispatch(clearNotification());
+  }
+
   static appEnvironment() {
     const env = process.env.REACT_APP_ENVIRONMENT;
     if (env === 'development') {
@@ -64,5 +76,13 @@ export class Utils {
     items.push(item);
     setSettings(items);
     return items;
+  }
+
+  static appImageUrl(version, id) {
+    if (typeof version === 'string' && typeof id === 'string') {
+      version = version.replace(/['"]+/g, '');
+      id = id.replace(/['"]+/g, '');
+    }
+    return `https://res.cloudinary.com/dtncgifkk/image/upload/v${version}/${id}`;
   }
 }
