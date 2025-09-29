@@ -1,6 +1,7 @@
 @mixin title-text-styles {
   white-space: nowrap;
-  overflow-x: hidden;
+  overflow-x: auto;
+  overflow-y: auto;
   text-overflow: ellipsis;
   align-self: center;
 }
@@ -46,7 +47,7 @@
 
     .suggestions {
       max-height: 480px;
-      overflow-y: scroll;
+      overflow-y: auto;
       grid-area: suggestions;
       display: grid;
       color: var(--white);

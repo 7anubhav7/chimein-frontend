@@ -8,6 +8,7 @@ import Toast from '@components/toast/Toast';
 import { useSelector } from 'react-redux';
 
 const App = () => {
+  // @ts-ignore
   const { notifications } = useSelector((state) => state);
 
   useEffect(() => {
