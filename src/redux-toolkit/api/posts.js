@@ -1,13 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { userService } from '@services/api/user/user.service';
+import { postService } from '@services/api/post/post.service';
 import { Utils } from '@services/utils/utils.service';
 
-const getUserSuggestions = createAsyncThunk(
-  'user/getSuggestions',
+const getPosts = createAsyncThunk(
+  'post/getPosts',
   async (name, { dispatch }) => {
     try {
-      const response = await userService.getUserSuggestions();
-      console.log(response.data);
+      const response = await postService.getAllPosts(1);
       return response.data;
     } catch (error) {
       Utils.dispatchNotification(
@@ -19,4 +18,4 @@ const getUserSuggestions = createAsyncThunk(
   }
 );
 
-export { getUserSuggestions };
+export { getPosts };
