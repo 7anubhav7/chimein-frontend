@@ -47,6 +47,7 @@ const ModalBoxSelection = ({ setSelectedPostImage }) => {
             onClick={fileInputClicked}
           >
             <Input
+              // @ts-ignore
               name="image"
               // @ts-ignore
               ref={fileInputRef}

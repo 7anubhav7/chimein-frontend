@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { userService } from '@services/api/user/user.service';
+import { Utils } from '@services/utils/utils.service';
 
 const getUserSuggestions = createAsyncThunk(
   'user/getSuggestions',
@@ -9,7 +10,11 @@ const getUserSuggestions = createAsyncThunk(
       console.log(response.data);
       return response.data;
     } catch (error) {
-      console.log(error);
+      Utils.dispatchNotification(
+        error.response.data.message,
+        'error',
+        dispatch
+      );
     }
   }
 );

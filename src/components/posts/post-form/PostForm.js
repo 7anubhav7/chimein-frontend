@@ -82,6 +82,7 @@ const PostForm = () => {
                 onClick={() => openImageModal()}
               >
                 <Input
+                  // @ts-ignore
                   name="image"
                   // @ts-ignore
                   ref={fileInputRef}

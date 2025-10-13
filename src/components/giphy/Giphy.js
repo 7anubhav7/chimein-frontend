@@ -37,6 +37,7 @@ const Giphy = () => {
           <div className="giphy-container-picker-form">
             <FaSearch className="search" />
             <Input
+              // @ts-ignore
               id="gif"
               name="gif"
               type="text"

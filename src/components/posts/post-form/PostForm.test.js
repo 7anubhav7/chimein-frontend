@@ -4,6 +4,7 @@ import { addUser } from '@redux/reducers/user/user.reducer';
 import { store } from '@redux/store';
 import { render, screen, within } from '@root/test.utils';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { act } from 'react-dom/test-utils';
 
 describe('PostForm', () => {
