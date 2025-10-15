@@ -1,4 +1,3 @@
-// @ts-nocheck
 import reducer, {
   addPostFeeling,
   closeModal,
@@ -17,7 +16,7 @@ const initialState = {
   feeling: '',
   image: '',
   data: null,
-  feelingIsOpen: false,
+  feelingsIsOpen: false,
   openFileDialog: false,
   gifModalIsOpen: false,
   reactionsModalIsOpen: false,
@@ -31,7 +30,7 @@ const modalData = {
   feeling: 'happy',
   image: 'https://place-hold.it',
   data: { username: 'Matt' },
-  feelingIsOpen: true,
+  feelingsIsOpen: true,
   openFileDialog: true,
   gifModalIsOpen: true,
   reactionsModalIsOpen: true,
@@ -46,7 +45,7 @@ describe('modal reducer', () => {
     initialState.feeling = '';
     initialState.image = '';
     initialState.data = null;
-    initialState.feelingIsOpen = false;
+    initialState.feelingsIsOpen = false;
     initialState.openFileDialog = false;
     initialState.gifModalIsOpen = false;
     initialState.reactionsModalIsOpen = false;
@@ -55,7 +54,11 @@ describe('modal reducer', () => {
   });
 
   it('should return the initial state', () => {
-    expect(reducer(undefined, {})).toEqual(initialState);
+    return expect(
+      reducer(undefined, {
+        type: '',
+      })
+    ).toEqual(initialState);
   });
 
   it('should open modal', () => {
@@ -70,7 +73,7 @@ describe('modal reducer', () => {
       feeling: '',
       image: '',
       data: 'This is a message',
-      feelingIsOpen: false,
+      feelingsIsOpen: false,
       openFileDialog: false,
       gifModalIsOpen: false,
       reactionsModalIsOpen: false,
@@ -86,7 +89,7 @@ describe('modal reducer', () => {
       feeling: '',
       image: '',
       data: null,
-      feelingIsOpen: false,
+      feelingsIsOpen: false,
       openFileDialog: false,
       gifModalIsOpen: false,
       reactionsModalIsOpen: false,
@@ -103,7 +106,7 @@ describe('modal reducer', () => {
         feeling: 'happy',
         image: '',
         data: null,
-        feelingIsOpen: false,
+        feelingsIsOpen: false,
         openFileDialog: false,
         gifModalIsOpen: false,
         reactionsModalIsOpen: false,
@@ -120,7 +123,7 @@ describe('modal reducer', () => {
       feeling: '',
       image: '',
       data: null,
-      feelingIsOpen: false,
+      feelingsIsOpen: false,
       openFileDialog: true,
       gifModalIsOpen: false,
       reactionsModalIsOpen: false,
@@ -136,7 +139,7 @@ describe('modal reducer', () => {
       feeling: '',
       image: '',
       data: null,
-      feelingIsOpen: true,
+      feelingsIsOpen: true,
       openFileDialog: false,
       gifModalIsOpen: false,
       reactionsModalIsOpen: false,
@@ -152,7 +155,7 @@ describe('modal reducer', () => {
       feeling: '',
       image: '',
       data: null,
-      feelingIsOpen: false,
+      feelingsIsOpen: false,
       openFileDialog: false,
       gifModalIsOpen: true,
       reactionsModalIsOpen: false,
@@ -168,7 +171,7 @@ describe('modal reducer', () => {
       feeling: '',
       image: '',
       data: null,
-      feelingIsOpen: false,
+      feelingsIsOpen: false,
       openFileDialog: false,
       gifModalIsOpen: false,
       reactionsModalIsOpen: true,
@@ -184,7 +187,7 @@ describe('modal reducer', () => {
       feeling: '',
       image: '',
       data: null,
-      feelingIsOpen: false,
+      feelingsIsOpen: false,
       openFileDialog: false,
       gifModalIsOpen: false,
       reactionsModalIsOpen: false,
@@ -205,7 +208,7 @@ describe('modal reducer', () => {
       feeling: '',
       image: '',
       data: 'deleted data',
-      feelingIsOpen: false,
+      feelingsIsOpen: false,
       openFileDialog: false,
       gifModalIsOpen: false,
       reactionsModalIsOpen: false,
