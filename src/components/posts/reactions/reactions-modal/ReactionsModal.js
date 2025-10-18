@@ -94,11 +94,7 @@ const ReactionsModal = () => {
                 }}
                 onClick={() => reactionList(reaction?.type)}
               >
-                <img
-                  src={`${reactionsMap[reaction?.type]}`}
-                  // @ts-ignore
-                  atl=""
-                />
+                <img src={`${reactionsMap[reaction?.type]}`} alt="" />
                 <span>{Utils.shortenLargeNumbers(reaction?.value)}</span>
               </li>
             ))}
