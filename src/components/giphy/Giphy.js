@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updatePostItem } from '@redux/reducers/post/post.reducer';
 import { toggleGifModal } from '@redux/reducers/modal/modal.reducer';
 import Spinner from '@components/spinner/Spinner';
+import { Utils } from '@services/utils/utils.service';
 import React from 'react';
 
 const Giphy = () => {
@@ -56,11 +57,11 @@ const Giphy = () => {
             className="giphy-container-picker-list"
             data-testid="unorderedList"
           >
-            {gifs.map((gif, index) => (
+            {gifs.map((gif) => (
               <li
                 className="giphy-container-picker-list-item"
                 data-testid="list-item"
-                key={index}
+                key={Utils.generateString(10)}
                 onClick={() => selectGif(gif.images.original.url)}
               >
                 <img
