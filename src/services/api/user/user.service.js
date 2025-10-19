@@ -11,6 +11,11 @@ class UserService {
     return response;
   }
 
+  async getAllUsers(page) {
+    const response = await axios.get(`/user/all/${page}`);
+    return response;
+  }
+
   async checkCurrentUser() {
     const response = await axios.get('/currentuser');
     return response;
