@@ -122,7 +122,7 @@ const Streams = () => {
           <Posts
             allPosts={posts}
             postsLoading={loading}
-            userFollowing={[following]}
+            userFollowing={following}
           />
           <div
             ref={bottomLineRef}
