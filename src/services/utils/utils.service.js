@@ -4,7 +4,7 @@ import {
 } from '@redux/reducers/notifications/notification.reducer';
 import { addUser, clearUser } from '@redux/reducers/user/user.reducer';
 import { avatarColors } from '@services/utils/static.data';
-import { floor, random, some } from 'lodash';
+import { floor, random, some, findIndex } from 'lodash';
 import millify from 'millify';
 
 export class Utils {
@@ -144,5 +144,15 @@ export class Utils {
     return imageId && imageVersion
       ? this.appImageUrl(imageVersion, imageId)
       : '';
+  }
+
+  static removeUserFromList(list, userId) {
+    const index = findIndex(list, (id) => id === userId);
+    list.splice(index, 1);
+    return list;
+  }
+
+  static checkUrl(url, word) {
+    return url.includes(word);
   }
 }
