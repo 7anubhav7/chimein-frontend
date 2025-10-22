@@ -147,10 +147,15 @@ export class ChatUtils {
         data.senderUsername.toLowerCase() === username ||
         data.receiverUsername.toLowerCase() === username
       ) {
-        setConversationId(data.conversationId);
-        ChatUtils.privateChatMessages.push(data);
-        chatMessages = [...ChatUtils.privateChatMessages];
-        setChatMessages(chatMessages);
+        const alreadyExists = ChatUtils.privateChatMessages.some(
+          (msg) => msg._id === data._id
+        );
+        if (!alreadyExists) {
+          setConversationId(data.conversationId);
+          ChatUtils.privateChatMessages.push(data);
+          chatMessages = [...ChatUtils.privateChatMessages];
+          setChatMessages(chatMessages);
+        }
       }
     });
 
