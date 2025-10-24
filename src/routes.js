@@ -8,6 +8,7 @@ import NotificationSkeleton from '@pages/social/notifications/NotificationSkelet
 import React from 'react';
 import CardSkeleton from '@components/card-element/CardSkeleton';
 import PhotoSkeleton from '@pages/social/photos/PhotoSkeleton';
+import ProfileSkeleton from '@pages/social/profile/ProfileSkeleton';
 
 const Social = lazy(() => import('@pages/social/Social'));
 const Chat = lazy(() => import('@pages/social/chat/Chat'));
@@ -102,7 +103,7 @@ export const AppRouter = () => {
         {
           path: 'profile/:username',
           element: (
-            <Suspense>
+            <Suspense fallback={<ProfileSkeleton />}>
               <Profile />
             </Suspense>
           ),
