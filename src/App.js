@@ -21,7 +21,7 @@ const App = () => {
         <Toast
           position="top-right"
           toastList={notifications}
-          autoDelete={true}
+          autoDelete={false}
         />
       )}
       <BrowserRouter>
