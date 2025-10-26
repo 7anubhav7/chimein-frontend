@@ -1,6 +1,7 @@
 import photo from '@assets/images/photo.png';
 import gif from '@assets/images/gif.png';
 import feeling from '@assets/images/feeling.png';
+import video from '@assets/images/video.png';
 import Input from '@components/input/Input';
 import useDetectOutsideClick from '@hooks/useDetectOutsideClick';
 import { useRef } from 'react';
@@ -11,7 +12,7 @@ import PropTypes from 'prop-types';
 import { toggleGifModal } from '@redux/reducers/modal/modal.reducer';
 import React from 'react';
 
-const ModalBoxSelection = ({ setSelectedPostImage }) => {
+const ModalBoxSelection = ({ setSelectedPostImage, setSelectedVideo }) => {
   // @ts-ignore
   const { feelingIsOpen, gifModalIsOpen } = useSelector((state) => state.modal);
   // @ts-ignore
@@ -19,6 +20,8 @@ const ModalBoxSelection = ({ setSelectedPostImage }) => {
   const feelingsRef = useRef(null);
   // @ts-ignore
   const fileInputRef = useRef();
+  // @ts-ignore
+  const videoInputRef = useRef();
   const [toggleFeelings, setToggleFeelings] = useDetectOutsideClick(
     feelingsRef,
     feelingIsOpen
@@ -29,8 +32,22 @@ const ModalBoxSelection = ({ setSelectedPostImage }) => {
     fileInputRef.current.click();
   };
 
+  const videoInputClicked = () => {
+    videoInputRef.current.click();
+  };
+
   const handleFileChange = (event) => {
-    ImageUtils.addFileToRedux(event, post, setSelectedPostImage, dispatch);
+    ImageUtils.addFileToRedux(
+      event,
+      post,
+      setSelectedPostImage,
+      dispatch,
+      'image'
+    );
+  };
+
+  const handleVideoFileChange = (event) => {
+    ImageUtils.addFileToRedux(event, post, setSelectedVideo, dispatch, 'video');
   };
 
   return (
@@ -74,6 +91,25 @@ const ModalBoxSelection = ({ setSelectedPostImage }) => {
           >
             <img src={feeling} alt="" /> Feeling
           </li>
+          <li
+            className="post-form-list-item image-select"
+            onClick={videoInputClicked}
+          >
+            <Input
+              // @ts-ignore
+              name="video"
+              ref={videoInputRef}
+              type="file"
+              className="file-input"
+              onClick={() => {
+                if (videoInputRef.current) {
+                  videoInputRef.current.value = null;
+                }
+              }}
+              handleChange={handleVideoFileChange}
+            />
+            <img src={video} alt="" /> Video
+          </li>
         </ul>
       </div>
     </>
@@ -81,5 +117,6 @@ const ModalBoxSelection = ({ setSelectedPostImage }) => {
 };
 ModalBoxSelection.propTypes = {
   setSelectedPostImage: PropTypes.func,
+  setSelectedVideo: PropTypes.func,
 };
 export default ModalBoxSelection;

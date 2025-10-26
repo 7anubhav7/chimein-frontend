@@ -156,6 +156,12 @@ export class Utils {
     return url.includes(word);
   }
 
+  static getVideo(videoId, videoVersion) {
+    return videoId && videoVersion
+      ? `https://res.cloudinary.com/dyamr9ym3/video/upload/v${videoVersion}/${videoId}`
+      : '';
+  }
+
   static renameFile(element) {
     const fileName = element.name.split('.').slice(0, -1).join('.');
     const blob = element.slice(0, element.size, '/image/png');

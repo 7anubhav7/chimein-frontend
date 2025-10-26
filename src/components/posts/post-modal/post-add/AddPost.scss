@@ -1,13 +1,13 @@
 .modal-box {
-  position: fixed; // instead of absolute, so it centers relative to viewport
+  position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); // ensures perfect centering
+  transform: translate(-50%, -50%);
   width: 500px;
   min-height: 620px;
   border-radius: 8px;
   background-color: var(--white-1);
-  z-index: 1000; // make sure it's above other elements
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -269,6 +269,7 @@ hr {
     }
 
     .image-delete-btn {
+      z-index: 10;
       position: absolute;
       top: 15px;
       left: auto;
