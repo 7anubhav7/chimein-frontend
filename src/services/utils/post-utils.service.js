@@ -38,6 +38,7 @@ export class PostUtils {
   ) {
     postData.gifUrl = '';
     postData.image = '';
+    postData.video = '';
     setSelectedPostImage(null);
     setPostImage('');
     setTimeout(() => {
@@ -51,7 +52,15 @@ export class PostUtils {
       PostUtils.positionCursor('editable');
     });
     dispatch(
-      updatePostItem({ gifUrl: '', image: '', imgId: '', imgVersion: '' })
+      updatePostItem({
+        gifUrl: '',
+        image: '',
+        imgId: '',
+        imgVersion: '',
+        video: '',
+        videoId: '',
+        videoVersion: '',
+      })
     );
   }
 
@@ -80,8 +89,8 @@ export class PostUtils {
     Utils.dispatchNotification(message, type, dispatch);
   }
 
-  static async sendPostWithImageRequest(
-    fileResult,
+  static async sendPostWithFileRequest(
+    type,
     postData,
     imageInputRef,
     setApiResponse,
@@ -89,11 +98,13 @@ export class PostUtils {
     dispatch
   ) {
     try {
-      postData.image = fileResult;
       if (imageInputRef?.current) {
         imageInputRef.current.textContent = postData.post;
       }
-      const response = await postService.createPostWithImage(postData);
+      const response =
+        type === 'image'
+          ? await postService.createPostWithImage(postData)
+          : await postService.createPostWithVideo(postData);
       if (response) {
         setApiResponse('success');
         setLoading(false);
@@ -109,8 +120,8 @@ export class PostUtils {
     }
   }
 
-  static async sendUpdatePostWithImageRequest(
-    fileResult,
+  static async sendUpdatePostWithFileRequest(
+    type,
     postId,
     postData,
     setApiResponse,
@@ -118,11 +129,10 @@ export class PostUtils {
     dispatch
   ) {
     try {
-      postData.image = fileResult;
-      postData.gifUrl = '';
-      postData.imgId = '';
-      postData.imgVersion = '';
-      const response = await postService.updatePostWithImage(postId, postData);
+      const response =
+        type === 'image'
+          ? await postService.updatePostWithImage(postId, postData)
+          : await postService.updatePostWithVideo(postId, postData);
       if (response) {
         PostUtils.dispatchNotification(
           response.data.message,

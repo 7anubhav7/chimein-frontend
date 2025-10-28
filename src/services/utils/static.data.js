@@ -24,6 +24,7 @@ import {
   FaUserCheck,
   FaUserPlus,
   FaUsers,
+  FaVideo,
 } from 'react-icons/fa';
 
 export const sideBarItems = [
@@ -65,12 +66,18 @@ export const sideBarItems = [
   },
   {
     index: 7,
+    name: 'Videos',
+    url: '/app/social/videos',
+    iconName: 'FaVideo',
+  },
+  {
+    index: 8,
     name: 'Notifications',
     url: '/app/social/notifications',
     iconName: 'FaRegBell',
   },
   {
-    index: 8,
+    index: 9,
     name: 'Profile',
     url: '/app/social/profile',
     iconName: 'FaRegUser',
@@ -107,6 +114,7 @@ export const fontAwesomeIcons = {
   FaUserPlus: <FaUserPlus className="icon" />,
   FaHeart: <FaHeart className="icon" />,
   FaImages: <FaImages className="icon" />,
+  FaVideo: <FaVideo className="icon" />,
   FaRegBell: <FaRegBell className="icon" />,
   FaBirthdayCake: <FaBirthdayCake className="icon" />,
   FaRegUser: <FaRegUser className="icon" />,
@@ -191,6 +199,7 @@ export const emptyPostData = {
   imgVersion: '',
   imgId: '',
   createdAt: '',
+  video: '',
 };
 
 export const reactionsMap = {
