@@ -73,7 +73,11 @@ const Header = () => {
   const [deleteSessionPageReload] = useSessionStorage('pageReload', 'delete');
 
   const backgrounColor = `${
-    environment === 'DEV' ? '#50b5ff' : environment === 'STG' ? '#e9710f' : ''
+    environment === 'DEV' || environment === 'LOCAL'
+      ? '#50b5ff'
+      : environment === 'STG'
+      ? '#e9710f'
+      : ''
   }`;
 
   const getUserNotifications = async () => {
