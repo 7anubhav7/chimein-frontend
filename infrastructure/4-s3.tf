@@ -1,22 +1,17 @@
 resource "aws_s3_bucket" "chimein_s3_bucket" {
-  bucket = "${local.prefix}-app"
+  bucket        = "${local.prefix}-app"
   force_destroy = true
 
   tags = local.common_tags
 }
 
-resource "aws_s3_bucket_acl" "chimein_bucket_acl" {
-  bucket = aws_s3_bucket.chimein_s3_bucket.id
-  acl="private"
-}
-
 resource "aws_s3_bucket_public_access_block" "public_block" {
   bucket = aws_s3_bucket.chimein_s3_bucket.id
 
-  block_public_acls = true
-  block_public_policy = true
+  block_public_acls       = true
+  block_public_policy     = true
   restrict_public_buckets = true
-  ignore_public_acls = true
+  ignore_public_acls      = true
 }
 
 resource "aws_s3_bucket_policy" "chimein_bucket_policy" {
@@ -54,7 +49,7 @@ data "aws_iam_policy_document" "bucket_policy_document" {
     ]
 
     principals {
-      type = "AWS"
+      type        = "AWS"
       identifiers = [aws_cloudfront_origin_access_identity.oai.iam_arn]
     }
   }

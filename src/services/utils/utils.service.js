@@ -3,10 +3,10 @@ import {
   clearNotification,
 } from '@redux/reducers/notifications/notification.reducer';
 import { addUser, clearUser } from '@redux/reducers/user/user.reducer';
-import { APP_ENVIRONMENT } from '@root/App';
 import { avatarColors } from '@services/utils/static.data';
 import { floor, random, some, findIndex } from 'lodash';
 import millify from 'millify';
+import { APP_ENVIRONMENT } from '@services/axios';
 
 export class Utils {
   static avatarColor() {

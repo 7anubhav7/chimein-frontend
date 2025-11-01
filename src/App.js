@@ -7,8 +7,6 @@ import { socketService } from '@services/socket/socket.service';
 import Toast from '@components/toast/Toast';
 import { useSelector } from 'react-redux';
 
-export const APP_ENVIRONMENT = 'local';
-
 const App = () => {
   // @ts-ignore
   const { notifications } = useSelector((state) => state);

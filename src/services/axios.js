@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { APP_ENVIRONMENT } from '@root/App';
+
+export const APP_ENVIRONMENT = 'development';
 
 export let BASE_ENDPOINT = '';
 
+// @ts-ignore
 if (APP_ENVIRONMENT === 'local') {
   BASE_ENDPOINT = 'http://localhost:5000';
 } else if (APP_ENVIRONMENT === 'development') {
