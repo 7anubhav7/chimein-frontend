@@ -155,12 +155,12 @@ jobs:
             rm -rf .env
             if [ "${CIRCLE_BRANCH}" == "develop" ]
             then
-              aws --region ap-south-1 s3 sync s3://chimein-env-files/frontend/develop .
+              aws --region ap-south-1 s3 sync s3://chimein-bucket/frontend/develop .
             elif [ "${CIRCLE_BRANCH}" == "staging" ]
             then
-              aws --region ap-south-1 s3 sync s3://chimein-env-files/frontend/staging .
+              aws --region ap-south-1 s3 sync s3://chimein-bucket/frontend/staging .
             else
-              aws --region ap-south-1 s3 sync s3://chimein-env-files/frontend/production .
+              aws --region ap-south-1 s3 sync s3://chimein-bucket/frontend/production .
             fi
             npm run build
             echo "Build successful"
