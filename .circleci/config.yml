@@ -232,7 +232,7 @@ jobs:
       - run:
           name: Upload project to s3
           command: |
-            aws --region ap-south-1 s3 cp ~/repo/build s3://chimein-client-${CIRCLE_BRANCH}-app --delete
+            aws --region ap-south-1 s3 cp ~/repo/build s3://chimein-client-${CIRCLE_BRANCH}-app
       - *notify-on-fail
 
   aws-cloudfront-distribution:
