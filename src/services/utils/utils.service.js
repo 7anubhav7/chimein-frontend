@@ -6,6 +6,7 @@ import { addUser, clearUser } from '@redux/reducers/user/user.reducer';
 import { avatarColors } from '@services/utils/static.data';
 import { floor, random, some, findIndex } from 'lodash';
 import millify from 'millify';
+import { APP_ENVIRONMENT } from '@services/axios';
 
 export class Utils {
   static avatarColor() {
@@ -60,10 +61,11 @@ export class Utils {
   }
 
   static appEnvironment() {
-    const env = process.env.REACT_APP_ENVIRONMENT;
-    if (env === 'development') {
+    if (APP_ENVIRONMENT === 'local') {
+      return 'LOCAL';
+    } else if (APP_ENVIRONMENT === 'development') {
       return 'DEV';
-    } else if (env === 'staging') {
+    } else if (APP_ENVIRONMENT === 'staging') {
       return 'STG';
     }
   }
