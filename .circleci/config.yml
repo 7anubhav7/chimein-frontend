@@ -127,7 +127,9 @@ jobs:
       - *restore-cache
       - run:
           name: Run prettier check
-          command: npm run prettier:check
+          command: |
+            npm run prettier:fix
+            npm run prettier:check
       - *notify-on-fail
 
   unit-test:
@@ -347,81 +349,63 @@ workflows:
           filters:
             branches:
               only:
-                - develop
-                - staging
-                - main
+                - pipeline-bug-fix
       - code-formatter-check:
           requires:
             - linting
           filters:
             branches:
               only:
-                - develop
-                - staging
-                - main
+                - pipeline-bug-fix
       - unit-test:
           requires:
-            - code-formatter-check
+            - linting
           filters:
             branches:
               only:
-                - develop
-                - staging
-                - main
+                - pipeline-bug-fix
       - build-app:
           requires:
             - unit-test
           filters:
             branches:
               only:
-                - develop
-                - staging
-                - main
+                - pipeline-bug-fix
       - terraform-validate:
           requires:
             - build-app
           filters:
             branches:
               only:
-                - develop
-                - staging
-                - main
+                - pipeline-bug-fix
       - terraform-plan-and-apply:
           requires:
             - terraform-validate
           filters:
             branches:
               only:
-                - develop
-                - staging
-                - main
+                - pipeline-bug-fix
       - upload-build-to-s3:
           requires:
             - terraform-plan-and-apply
           filters:
             branches:
               only:
-                - develop
-                - staging
-                - main
+                - pipeline-bug-fix
       - aws-cloudfront-distribution:
           requires:
             - upload-build-to-s3
           filters:
             branches:
               only:
-                - develop
-                - staging
-                - main
+                - pipeline-bug-fix
       - notify-via-slack:
           requires:
             - aws-cloudfront-distribution
           filters:
             branches:
               only:
-                - develop
-                - staging
-                - main
+                - pipeline-bug-fix
       - hold:
           type: approval
           requires:
@@ -432,6 +416,4 @@ workflows:
           filters:
             branches:
               only:
-                - develop
-                - staging
-                - main
+                - pipeline-bug-fix
