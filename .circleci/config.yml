@@ -127,7 +127,9 @@ jobs:
       - *restore-cache
       - run:
           name: Run prettier check
-          command: npm run prettier:check
+          command: |
+            npm run prettier:fix
+            npm run prettier:check
       - *notify-on-fail
 
   unit-test:
