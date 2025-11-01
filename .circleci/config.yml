@@ -7,7 +7,7 @@ executors:
   app-executor:
     docker:
       - image: cimg/node:22.8
-      - image: 'cibuilds/base:latest'
+      - image: "cibuilds/base:latest"
     working_directory: ~/repo
   terraform-executor:
     docker:
@@ -117,7 +117,7 @@ jobs:
       - run:
           name: Run linting
           command: npm run lint:check
-      - *notify-on-
+      - *notify-on-fail
 
   code-formatter-check:
     executor: app-executor
@@ -253,9 +253,9 @@ jobs:
     steps:
       - run: echo "Slack Notification"
       - slack/notify:
-          event: 'always'
-          channel: 'circle-ci-notif'
-          template: ''
+          event: "always"
+          channel: "circle-ci-notif"
+          template: ""
           custom: |
             {
             "blocks": [
@@ -333,7 +333,7 @@ jobs:
             terraform workspace select ${CIRCLE_BRANCH} || terraform workspace new ${CIRCLE_BRANCH}
             terraform destroy -auto-approve
       - slack/notify:
-          channel: 'chimein-app-builds'
+          channel: "chimein-app-builds"
           event: always
           template: basic_on_hold_1
 
