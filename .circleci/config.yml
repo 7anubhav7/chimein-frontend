@@ -143,31 +143,6 @@ jobs:
           command: sleep 3
       - *notify-on-fail
 
-  build-app:
-    executor: app-executor
-    steps:
-      - checkout
-      - *show-current-branch-name
-      - *restore-cache
-      - aws-cli/setup:
-          profile_name: circleci
-      - run:
-          name: Build project
-          command: |
-            rm -rf .env
-            if [ "${CIRCLE_BRANCH}" == "develop" ]
-            then
-              aws --region ap-south-1 s3 sync s3://chimein-bucket/frontend/develop .
-            elif [ "${CIRCLE_BRANCH}" == "staging" ]
-            then
-              aws --region ap-south-1 s3 sync s3://chimein-bucket/frontend/staging .
-            else
-              aws --region ap-south-1 s3 sync s3://chimein-bucket/frontend/production .
-            fi
-            npm run build
-            echo "Build successful"
-      - *notify-on-fail
-
   terraform-validate:
     executor: terraform-executor
     steps:
@@ -193,6 +168,7 @@ jobs:
     steps:
       - checkout
       - *show-current-branch-name
+      - run: mkdir -p temp_folder
       - run:
           name: Install bash for this container
           command: |
@@ -206,45 +182,62 @@ jobs:
           name: Terraform plan
           command: |
             cd infrastructure/
-            terraform init
-            terraform plan
-      - run:
-          name: Terraform workspace select
-          command: |
-            cd infrastructure/
+            terraform
             terraform workspace list
             terraform workspace select ${CIRCLE_BRANCH} || terraform workspace new ${CIRCLE_BRANCH}
+            terraform plan
       - run:
           name: Terraform apply
           command: |
             cd infrastructure/
             terraform apply -auto-approve
-            terraform output cloudfront_distribution_id > ../cloudfront_distribution_id.txt
+            terraform output cloudfront_distribution_id > ../temp_folder/cloudfront_distribution_id.txt
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - temp_folder
       - *notify-on-fail
 
   upload-build-to-s3:
-    executor: aws-cli/default
+    executor: app-executor
     steps:
       - checkout
       - aws-cli/setup:
           profile_name: circleci
       - *restore-cache
       - run:
+          name: Build project
+          command: |
+            rm -rf .env
+            if [ "${CIRCLE_BRANCH}" == "develop" ]
+            then
+              aws --region ap-south-1 s3 sync s3://chimein-bucket/frontend/develop .
+            elif [ "${CIRCLE_BRANCH}" == "staging" ]
+            then
+              aws --region ap-south-1 s3 sync s3://chimein-bucket/frontend/staging .
+            else
+              aws --region ap-south-1 s3 sync s3://chimein-bucket/frontend/production .
+            fi
+            npm run build
+            echo "Build successful"
+      - run:
           name: Upload project to s3
           command: |
-            aws --region ap-south-1 s3 cp ~/repo/build s3://chimein-client-${CIRCLE_BRANCH}-app
+            aws --region ap-south-1 s3 sync build s3://chimein-client-${CIRCLE_BRANCH}-app
       - *notify-on-fail
 
   aws-cloudfront-distribution:
     executor: app-executor
     steps:
       - checkout
+      - attach_workspace:
+          at: ./
       - aws-cli/setup:
           profile_name: circleci
       - run:
           name: Invalidate cloudfront distribution
           command: |
-            CLOUDFRONT_DISTRIBUTION_ID=$(cat ../cloudfront_distribution_id.txt | sed 's/\"//g')
+            CLOUDFRONT_DISTRIBUTION_ID=$(cat temp_folder/cloudfront_distribution_id.txt | sed 's/\"//g')
             echo $CLOUDFRONT_DISTRIBUTION_ID
             aws configure set preview.cloudfront true
             aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRIBUTION_ID} --paths /\*
@@ -370,18 +363,9 @@ workflows:
                 - develop
                 - staging
                 - main
-      - build-app:
-          requires:
-            - unit-test
-          filters:
-            branches:
-              only:
-                - develop
-                - staging
-                - main
       - terraform-validate:
           requires:
-            - build-app
+            - unit-test
           filters:
             branches:
               only:
