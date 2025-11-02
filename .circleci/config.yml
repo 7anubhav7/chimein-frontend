@@ -182,7 +182,7 @@ jobs:
           name: Terraform plan
           command: |
             cd infrastructure/
-            terraform
+            terraform init
             terraform workspace list
             terraform workspace select ${CIRCLE_BRANCH} || terraform workspace new ${CIRCLE_BRANCH}
             terraform plan
