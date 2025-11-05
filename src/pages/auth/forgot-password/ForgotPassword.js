@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import backgroundImage from '@assets/images/background.jpg';
 import './ForgotPassword.scss';
 import { authService } from '@services/api/auth/auth.service';
+import React from 'react';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -37,7 +38,7 @@ const ForgotPassword = () => {
       className="container-wrapper"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      <div className="environment">DEV</div>
+      <div className="environment">STG</div>
       <div className="container-wrapper-auth">
         <div
           className="tabs forgot-password-tabs"

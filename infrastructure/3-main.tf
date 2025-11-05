@@ -2,7 +2,7 @@ terraform {
   backend "s3" {
     bucket  = "chimein-client-terraform-state"
     region  = "ap-south-1"
-    key     = "develop/chimein-client.tfstate"
+    key     = "staging/chimein-client.tfstate"
     encrypt = true
   }
 }

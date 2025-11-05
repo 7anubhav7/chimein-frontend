@@ -6,6 +6,7 @@ import Button from '@components/button/Button';
 import { Link, useSearchParams } from 'react-router-dom';
 import backgroundImage from '@assets/images/background.jpg';
 import { authService } from '@services/api/auth/auth.service';
+import React from 'react';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -44,7 +45,7 @@ const ResetPassword = () => {
       className="container-wrapper"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      <div className="environment">DEV</div>
+      <div className="environment">STG</div>
       <div className="container-wrapper-auth">
         <div
           className="tabs reset-password-tabs"

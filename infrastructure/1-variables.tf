@@ -27,7 +27,7 @@ variable "main_client_app_domain" {
 variable "dev_client_app_domain" {
   type        = string
   description = "Dev client app domain"
-  default     = "app.dev.chimein.ink"
+  default     = "app.stg.chimein.ink"
 }
 
 variable "custom_error_response" {

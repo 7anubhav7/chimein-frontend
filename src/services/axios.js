@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const APP_ENVIRONMENT = 'development';
+export const APP_ENVIRONMENT = 'staging';
 
 export let BASE_ENDPOINT = '';
 
