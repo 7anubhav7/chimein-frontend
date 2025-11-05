@@ -77,6 +77,8 @@ const Header = () => {
       ? '#50b5ff'
       : environment === 'STG'
       ? '#e9710f'
+      : environment === 'PROD'
+      ? '#ffffffff'
       : ''
   }`;
 

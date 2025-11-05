@@ -67,6 +67,8 @@ export class Utils {
       return 'DEV';
     } else if (APP_ENVIRONMENT === 'staging') {
       return 'STG';
+    } else if (APP_ENVIRONMENT === 'production') {
+      return 'PROD';
     }
   }
 
