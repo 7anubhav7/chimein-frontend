@@ -205,16 +205,16 @@ export class PostUtils {
 
   static socketIOPost(posts, setPosts) {
     posts = cloneDeep(posts);
-    socketService?.socket?.on('add post', (post) => {
+    socketService?.socket?.on('Add post', (post) => {
       posts = [post, ...posts];
       setPosts(posts);
     });
 
-    socketService?.socket?.on('update post', (post) => {
+    socketService?.socket?.on('Update post', (post) => {
       PostUtils.updateSinglePost(posts, post, setPosts);
     });
 
-    socketService?.socket?.on('delete post', (postId) => {
+    socketService?.socket?.on('Delete post', (postId) => {
       const index = findIndex(posts, (postData) => postData._id === postId);
       if (index > -1) {
         posts = cloneDeep(posts);
